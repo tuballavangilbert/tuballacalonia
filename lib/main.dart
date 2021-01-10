@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
           title: Text('Cartshier'),
           backgroundColor: Colors.black,
         ),
+        
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
