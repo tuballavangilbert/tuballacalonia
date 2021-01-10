@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: Text('Easy Budget Planner'),
+          title: Text('Cartshier'),
           backgroundColor: Colors.black,
         ),
         
@@ -55,6 +55,23 @@ class MyApp extends StatelessWidget {
                 ]
               )
             ),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.deepOrange,
+              ),
+              child: Row(
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.qr_code),
+                    color: Colors.black,
+                    onPressed: (){
+                      
+                    }
+                  ),
+                  Text("Scan Product")
+                ]
+              )
+            ),
           ],
         ),
       ),
@@ -70,7 +87,7 @@ class BudgetMenu extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: Text('Easy Budget Planner'),
+          title: Text('Cartshier'),
           backgroundColor: Colors.black,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
                               color: Colors.white,
@@ -193,7 +210,7 @@ class EditBudget extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          title: Text('Easy Budget Planner'),
+          title: Text('Cartshier'),
           backgroundColor: Colors.black,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
                               color: Colors.white,
@@ -228,7 +245,7 @@ class AddSavings extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: Text('Easy Budget Planner'),
+          title: Text('Cartshier'),
           backgroundColor: Colors.black,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
                               color: Colors.white,
@@ -276,7 +293,7 @@ class Savings extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: Text('Easy Budget Planner'),
+          title: Text('Cartshier'),
           backgroundColor: Colors.black,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
                               color: Colors.white,
@@ -335,7 +352,7 @@ class Transaction extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          title: Text('Easy Budget Planner'),
+          title: Text('Cartshier'),
           backgroundColor: Colors.black,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
                               color: Colors.white,
