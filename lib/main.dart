@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: Text('Cartshier'),
+          title: Text('Easy Budget Planner'),
           backgroundColor: Colors.black,
         ),
         
@@ -70,7 +70,7 @@ class BudgetMenu extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: Text('Cartshier'),
+          title: Text('Easy Budget Planner'),
           backgroundColor: Colors.black,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
                               color: Colors.white,
@@ -111,7 +111,7 @@ class BudgetMenu extends StatelessWidget {
              FlatButton(
               onPressed:(){
                 Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Savings(),
+                        builder: (context) => AddSavings(),
                       ));
               },
     color: Colors.deepOrange,
@@ -132,6 +132,55 @@ class BudgetMenu extends StatelessWidget {
     ],
 ),
           ),
+              FlatButton(
+              onPressed:(){
+                Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Transaction(),
+                      ));
+              },
+    color: Colors.deepOrange,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(18.0),
+      side: BorderSide(color: Colors.black),
+    ),
+    child: Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: <Widget>[
+        Icon(Icons.dialpad, color: Colors.black),
+        Text(
+            "TRANSACTION",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+            color: Colors.black, fontSize: 18.0),
+        ),
+    ],
+),
+          ),
+          FlatButton(
+              onPressed:(){
+                Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Savings(),
+                      ));
+              },
+    color: Colors.deepOrange,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(18.0),
+      side: BorderSide(color: Colors.black),
+    ),
+    child: Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: <Widget>[
+        Icon(Icons.how_to_vote, color: Colors.black),
+        Text(
+            "MY SAVINGS",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+            color: Colors.black, fontSize: 18.0),
+        ),
+    ],
+),
+          ),  
+          
           ]
         )
       )
@@ -144,7 +193,7 @@ class EditBudget extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-          title: Text('Cartshier'),
+          title: Text('Easy Budget Planner'),
           backgroundColor: Colors.black,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
                               color: Colors.white,
@@ -171,7 +220,7 @@ class EditBudget extends StatelessWidget {
   }
 }
 
-class Savings extends StatelessWidget {
+class AddSavings extends StatelessWidget {
   @override
    Widget build(BuildContext context) {
     return MaterialApp(
@@ -179,7 +228,7 @@ class Savings extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: Text('Cartshier'),
+          title: Text('Easy Budget Planner'),
           backgroundColor: Colors.black,
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
                               color: Colors.white,
@@ -219,3 +268,96 @@ class Savings extends StatelessWidget {
         )));
 
 }}
+class Savings extends StatelessWidget {
+  @override
+   Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Welcome to Flutter',
+      home: Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          title: Text('Easy Budget Planner'),
+          backgroundColor: Colors.black,
+          leading: IconButton(icon: Icon(Icons.arrow_back_ios),
+                              color: Colors.white,
+                              onPressed:(){
+                                Navigator.pop(context);
+                              }
+                             )
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children:[
+            
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.deepOrange
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children:<Widget>[
+                  Text("YOUR SAVINGS", textAlign: TextAlign.left),
+                  Text(strSavings, style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold), textAlign: TextAlign.left)
+                ]
+              )
+            ),
+              FlatButton(
+              onPressed:(){
+
+              },
+    color: Colors.deepOrange,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(18.0),
+      side: BorderSide(color: Colors.black),
+    ),
+    child: Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: <Widget>[
+        Icon(Icons.delete, color: Colors.black),
+        Text(
+            "RESET",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+            color: Colors.black, fontSize: 18.0),
+        ),
+    ],
+),
+          ), 
+          ]
+        )));
+
+}}
+
+class Transaction extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+          title: Text('Easy Budget Planner'),
+          backgroundColor: Colors.black,
+          leading: IconButton(icon: Icon(Icons.arrow_back_ios),
+                              color: Colors.white,
+                              onPressed:(){
+                                Navigator.pop(context);
+                              }
+                             )
+        ),
+      body: new Container(
+          padding: const EdgeInsets.all(40.0),
+          child: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          new TextField(
+            decoration: new InputDecoration(labelText: "Enter your total transaction"),
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+    FilteringTextInputFormatter.digitsOnly
+], // Only numbers can be entered
+          ),
+        ],
+      )),
+    );
+  }
+}
