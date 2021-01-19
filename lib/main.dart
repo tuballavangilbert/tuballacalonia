@@ -1,19 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Navigation Basics',
-    home: MyApp(),
-  ));
+void main() => runApp(MyApp());
+
+
+double budget = 0.00;
+double savings = 0.00;
+
+
+
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return MaterialApp(
+      title: "Cartshier",
+      home: HomePage()
+    );
+  }
 }
 
-var budget = 0.00;
-var savings = 0.00;
-String strbudget = budget.toStringAsFixed(2);
-String strSavings = savings.toStringAsFixed(2);
+class HomePage extends StatefulWidget{
+  
+  @override
+  _HomepageState createState() => _HomepageState();
+}
 
-class MyApp extends StatelessWidget {
+class _HomepageState extends State<HomePage>{
+  
+  _HomepageState();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -41,7 +55,7 @@ class MyApp extends StatelessWidget {
               ),
               child: Row(
                 children: <Widget>[
-                  Text(strbudget, style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),),
+                  Text(budget.toStringAsFixed(2), style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),),
                   new Spacer(),
                   IconButton(
                     icon: Icon(Icons.arrow_forward_ios),
@@ -79,7 +93,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class BudgetMenu extends StatelessWidget {
+class BudgetMenu extends StatefulWidget{
+  @override
+  _BudgetMenuState createState() => _BudgetMenuState();
+}
+
+class _BudgetMenuState extends State<BudgetMenu> {
   @override
    Widget build(BuildContext context) {
     return MaterialApp(
@@ -92,7 +111,7 @@ class BudgetMenu extends StatelessWidget {
           leading: IconButton(icon: Icon(Icons.arrow_back_ios),
                               color: Colors.white,
                               onPressed:(){
-                                Navigator.pop(context);
+                                        Navigator.pop(context,true);
                               }
                              )
         ),
@@ -127,9 +146,15 @@ class BudgetMenu extends StatelessWidget {
           ),
              FlatButton(
               onPressed:(){
-                Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => AddSavings(),
-                      ));
+                setState((){
+                  savings = savings + budget;
+                  budget = 0.00; 
+              }
+                      );  
+               showDialog(
+              context: context,
+              builder: (BuildContext context) => _buildPopupDialog(context),
+            );
               },
     color: Colors.deepOrange,
     shape: RoundedRectangleBorder(
@@ -204,7 +229,15 @@ class BudgetMenu extends StatelessWidget {
     );
 }}
 
-class EditBudget extends StatelessWidget {
+class EditBudget extends StatefulWidget{
+  
+  @override
+  _EditBudgetState createState() => _EditBudgetState();
+}
+
+class _EditBudgetState extends State<EditBudget> {
+  String input;
+  TextEditingController inputcontroller = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -225,11 +258,26 @@ class EditBudget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           new TextField(
+            controller: inputcontroller,
             decoration: new InputDecoration(labelText: "Enter your budget"),
             keyboardType: TextInputType.number,
             inputFormatters: <TextInputFormatter>[
     FilteringTextInputFormatter.digitsOnly
 ], // Only numbers can be entered
+            
+          ),
+          new FlatButton(
+            child: Text("Save"),
+            onPressed:(){
+              setState((){
+                budget = double.parse(inputcontroller.text);
+              }
+                      );
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => HomePage(),
+                      ));
+            },
+            color : Colors.blue
           ),
         ],
       )),
@@ -237,7 +285,12 @@ class EditBudget extends StatelessWidget {
   }
 }
 
-class AddSavings extends StatelessWidget {
+class AddSavings extends StatefulWidget{
+  @override
+  _AddSavingState createState() => _AddSavingState();
+}
+
+class _AddSavingState extends State<AddSavings> {
   @override
    Widget build(BuildContext context) {
     return MaterialApp(
@@ -277,7 +330,7 @@ class AddSavings extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children:<Widget>[
                   Text("NEW SAVINGS BALANCE", textAlign: TextAlign.left),
-                  Text(strSavings, style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold), textAlign: TextAlign.left)
+                  Text(savings.toStringAsFixed(2), style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold), textAlign: TextAlign.left)
                 ]
               )
             )
@@ -285,7 +338,13 @@ class AddSavings extends StatelessWidget {
         )));
 
 }}
-class Savings extends StatelessWidget {
+
+class Savings extends StatefulWidget{
+  @override
+  _SavingsState createState() => _SavingsState();
+}
+
+class _SavingsState extends State<Savings> {
   @override
    Widget build(BuildContext context) {
     return MaterialApp(
@@ -315,13 +374,16 @@ class Savings extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children:<Widget>[
                   Text("YOUR SAVINGS", textAlign: TextAlign.left),
-                  Text(strSavings, style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold), textAlign: TextAlign.left)
+                  Text(savings.toStringAsFixed(2), style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold), textAlign: TextAlign.left)
                 ]
               )
             ),
               FlatButton(
               onPressed:(){
-
+                setState((){
+                savings = 0.00;
+              }
+                      );
               },
     color: Colors.deepOrange,
     shape: RoundedRectangleBorder(
@@ -346,7 +408,12 @@ class Savings extends StatelessWidget {
 
 }}
 
-class Transaction extends StatelessWidget {
+class Transaction extends StatefulWidget{
+  @override
+  _TransactionState createState() => _TransactionState();
+}
+
+class _TransactionState extends State<Transaction> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -377,4 +444,28 @@ class Transaction extends StatelessWidget {
       )),
     );
   }
+}
+
+Widget _buildPopupDialog(BuildContext context) {
+  return new AlertDialog(
+    title: const Text('Info'),
+    content: new Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text("Successfully Added"),
+      ],
+    ),
+    actions: <Widget>[
+      new FlatButton(
+        onPressed: () {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => HomePage(),
+                      ));
+        },
+        textColor: Theme.of(context).primaryColor,
+        child: const Text('Okay'),
+      ),
+    ],
+  );
 }
